@@ -9,6 +9,7 @@ public class RepopulateScript : MonoBehaviour {
 		gameManager = GetComponent<GameManagerScript>();
 	}
 
+	//fill all empty spaces with new tokens in the grid
 	public virtual void AddNewTokensToRepopulateGrid(){
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			GameObject token = gameManager.gridArray[x, gameManager.gridHeight - 1];
