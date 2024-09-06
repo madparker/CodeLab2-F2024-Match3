@@ -70,12 +70,12 @@ public class MoveTokensScript : MonoBehaviour {
 		//a match was not made, must reverse the movement
 	}
 
+	//this function is used to change the positions of the tokens being exchanged
 	public virtual void ExchangeTokens(){
-		//this function is used to change the positions of the tokens being exchanged
 		
 		Vector3 startPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos1.x, (int)exchangeGridPos1.y);
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
-		//setting the start postion and end position vectors
+		//setting the start position and end position vectors
 		
 		Vector3 movePos1 = Vector3.Lerp(startPos, endPos, lerpPercent);
 		Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
