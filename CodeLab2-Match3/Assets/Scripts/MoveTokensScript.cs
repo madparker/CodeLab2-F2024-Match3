@@ -11,10 +11,10 @@ public class MoveTokensScript : MonoBehaviour {
 	
 	[SerializeField] float lerpPercent;
 	[SerializeField] float lerpSpeed;
-	
+	//allow you to see and manipulate variables in the inspector even if it's a private variable
 	//setting a userSwap boolean
 	bool userSwap;
-
+	//Object Oriented Programming, if this variable is protected, can only be seen by the script or any script that extends this script. (extending from this script like DailyGenerator extends form seed generator)
 	protected GameObject exchangeToken1;
 	GameObject exchangeToken2;
 
@@ -55,7 +55,7 @@ public class MoveTokensScript : MonoBehaviour {
 
 	public void SetupTokenExchange(GameObject token1, Vector2 pos1,
 	                               GameObject token2, Vector2 pos2, bool reversable){
-		//getitng the parameters of the first two tokens and their relative position and creating a bool parameter
+		//getting the parameters of the first two tokens and their relative position and creating a bool parameter
 		SetupTokenMove();
 
 		exchangeToken1 = token1;
@@ -75,7 +75,7 @@ public class MoveTokensScript : MonoBehaviour {
 		
 		Vector3 startPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos1.x, (int)exchangeGridPos1.y);
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
-		//setting the start postion and end position vectors
+		//setting the start position and end position vectors
 		
 		Vector3 movePos1 = Vector3.Lerp(startPos, endPos, lerpPercent);
 		Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
@@ -86,11 +86,11 @@ public class MoveTokensScript : MonoBehaviour {
 		//giving the tokens their new positions
 
 		if(lerpPercent >= 1){
-			//if the lerp value is greater or equal to one then place the token in the exchnaged grid position
+			//if the lerp value is greater or equal to one then place the token in the exchanged grid position
 			gameManager.gridArray[(int)exchangeGridPos2.x, (int)exchangeGridPos2.y] = exchangeToken1;
 			gameManager.gridArray[(int)exchangeGridPos1.x, (int)exchangeGridPos1.y] = exchangeToken2;	
 			
-			//if there has been a swap but it's not a match, then reset the grid positions set moving to false with no exchnaged tokens
+			//if there has been a swap but it's not a match, then reset the grid positions set moving to false with no exchanged tokens
 			if(!matchManager.GridHasMatch() && userSwap){
 				SetupTokenExchange(exchangeToken1, exchangeGridPos2, exchangeToken2, exchangeGridPos1, false);
 			} else {
@@ -134,7 +134,7 @@ public class MoveTokensScript : MonoBehaviour {
 							movedToken = true;
 						}
 					}
-					//break;
+					//break; 
 				}
 			}
 		}

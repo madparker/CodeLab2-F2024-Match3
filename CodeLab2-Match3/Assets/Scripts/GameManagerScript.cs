@@ -55,7 +55,7 @@ public class GameManagerScript : MonoBehaviour {
 				//repopulate new tokens
 				repopulateManager.AddNewTokensToRepopulateGrid();
 			}
-		}
+		} 
 	}
 
 
