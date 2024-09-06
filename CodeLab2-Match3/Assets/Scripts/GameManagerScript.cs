@@ -21,7 +21,7 @@ public class GameManagerScript : MonoBehaviour {
 	
 	//Initialize
 	public virtual void Start () {
-		tokenTypes = (Object[])Resources.LoadAll("_Core/Tokens/");
+		tokenTypes = (Object[])Resources.LoadAll("_Core/Tokens/"); //load all the token prefabs
 		gridArray = new GameObject[gridWidth, gridHeight];
 		MakeGrid();
 		matchManager = GetComponent<MatchManagerScript>();
@@ -61,7 +61,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	//called at the start to create the grid of tokens
 	void MakeGrid() {
-		grid = new GameObject("TokenGrid");
+		grid = new GameObject("TokenGrid"); //make a gameObject to hold all the grid tokens in the scene
 		//iterate through the grid and spawn a token at each position
 		for(int x = 0; x < gridWidth; x++){
 			for(int y = 0; y < gridHeight; y++){
