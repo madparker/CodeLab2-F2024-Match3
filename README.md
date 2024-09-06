@@ -1,5 +1,12 @@
-# FILL IN INFO ABOUT YOUR GAME HERE. 
+# A Simple Match 3 Game
 
-DO NOT LEAVE IT LIKE THIS!!!
+This is a match 3 game, but it is not everything it needs to be at the moment
 
-Please? Please, give me content. I'm begging you. It's not that hard. Thanks.
+It needs the following:
+
+* comments
+* bug fixes
+* modding
+
+We will fix all of these in the next couple weeks.
+
