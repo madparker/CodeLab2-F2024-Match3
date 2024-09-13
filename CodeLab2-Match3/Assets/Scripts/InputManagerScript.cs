@@ -45,6 +45,9 @@ public class InputManagerScript : MonoBehaviour {
 					//If the two tokens are next to each other,
 					if(Mathf.Abs((pos1.y - pos2.y)) == 1){ 
 						
+						//if (pos1.x == pos2.x && Mathf.Abs(pos1.y-pos2.y) ==1{
+						
+						
 						
 						
 						//call the SetupTokenExchange function from the MoveTokensScript, to lerp the two selected tokens

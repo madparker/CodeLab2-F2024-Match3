@@ -31,11 +31,12 @@ namespace AlexandraAnderson
             }
 		      //this is the match bool variable which is returned true if there is a match and false if there isn't
             return match;
-              //if ( match == true) { //If a match is true, then play nice audio sound
+            /*  
+            //if ( match == true) { //If a match is true, then play nice audio sound
                  // aud = GetComponent<AudioSource>();
                 //  aud.Play(); 
              // }
-             
+             */
         }
         
         
