@@ -134,7 +134,7 @@ public class MoveTokensScript : MonoBehaviour {
 							movedToken = true;
 						}
 					}
-					//break; 
+					break; 
 				}
 			}
 		}
