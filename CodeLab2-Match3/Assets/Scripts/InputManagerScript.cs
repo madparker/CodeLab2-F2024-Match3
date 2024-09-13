@@ -43,7 +43,7 @@ public class InputManagerScript : MonoBehaviour {
 					Vector2 pos2 = gameManager.GetPositionOfTokenInGrid(tokenCollider.gameObject);
 					
 					//If the two tokens are next to each other,
-					if(Mathf.Abs((pos1.x - pos2.x) + (pos1.y - pos2.y)) == 1){ 
+					if(Mathf.Abs((pos1.y - pos2.y)) == 1){ 
 						
 						
 						
