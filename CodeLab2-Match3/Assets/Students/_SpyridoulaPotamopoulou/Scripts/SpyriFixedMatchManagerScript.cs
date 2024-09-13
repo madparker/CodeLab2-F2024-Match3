@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SpyriPotam
 {
-    
+    //this script is a subscript of MatchManagerScript: it extends from it
     public class SpyriFixedMatchManagerScript : MatchManagerScript
     {
 
