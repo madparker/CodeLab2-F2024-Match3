@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DabuLyu
 {
@@ -11,9 +12,9 @@ namespace DabuLyu
         public override void Start()
         {
             base.Start();
+
             
-            matchManager = GetComponent<FixedMatchManagerScript>();
-            inputManager = GetComponent<FixedInputManagerScript>();
+
         }
 
         // Update is called once per frame
@@ -21,6 +22,11 @@ namespace DabuLyu
         {
             base.Update();
 
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
 
         }
     }
