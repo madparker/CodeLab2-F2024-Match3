@@ -42,7 +42,8 @@ public class InputManagerScript : MonoBehaviour {
 					//set pos2 to the position of the token selected second
 					Vector2 pos2 = gameManager.GetPositionOfTokenInGrid(tokenCollider.gameObject);
 					
-					//If the two tokens are next to each other,
+					//if the xs are the same and the ys are one off from each other
+					//or the ys are the same and the xs are one off from each other
 					if(Mathf.Abs((pos1.x - pos2.x) + (pos1.y - pos2.y)) == 1){ 
 						
 						
