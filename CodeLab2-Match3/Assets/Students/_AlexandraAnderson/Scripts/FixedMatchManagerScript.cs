@@ -15,6 +15,7 @@ namespace AlexandraAnderson
             Since the x has already been check with the function GridHasHorizontalMatch, the same must be done with y using GridHasVertical Match.
             This function will check for vertical matches the same way the previous function checks for horizontal matches.
             
+            //AudioSource aud; //initializing audio source for match sound
             */
             bool match = base.GridHasMatch();
             
@@ -31,6 +32,14 @@ namespace AlexandraAnderson
             }
 		      //this is the match bool variable which is returned true if there is a match and false if there isn't
             return match;
+            
+            /*
+             * If a match is true, then play nice audio sound
+             * if ( match == true){
+             *  aud = GetComponent<AudioSource>();
+             * aud.Play();
+             * }
+             */
         }
         
         
