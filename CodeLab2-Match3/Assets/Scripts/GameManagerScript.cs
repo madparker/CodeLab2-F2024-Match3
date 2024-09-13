@@ -12,22 +12,22 @@ public class GameManagerScript : MonoBehaviour {
 	protected InputManagerScript inputManager;
 	protected RepopulateScript repopulateManager;
 	protected MoveTokensScript moveTokenManager;
+	protected TokenObjectPool tokenObjectPool;
 
 	public GameObject grid;
 	public  GameObject[,] gridArray;
-	protected Object[] tokenTypes;
 	GameObject selected;
 	
 	
 	//Initialize
 	public virtual void Start () {
-		tokenTypes = (Object[])Resources.LoadAll("_Core/Tokens/"); //load all the token prefabs
 		gridArray = new GameObject[gridWidth, gridHeight];
-		MakeGrid();
 		matchManager = GetComponent<MatchManagerScript>();
 		inputManager = GetComponent<InputManagerScript>();
 		repopulateManager = GetComponent<RepopulateScript>();
+		tokenObjectPool = GetComponent<TokenObjectPool>();
 		moveTokenManager = GetComponent<MoveTokensScript>();
+		MakeGrid();
 	}
 
 	public virtual void Update(){
@@ -76,7 +76,7 @@ public class GameManagerScript : MonoBehaviour {
 		for(int x = 0; x < gridWidth; x++){
 			for(int y = 0; y < gridHeight ; y++){
 				if(removeTokens.Contains(gridArray[x, y])){
-					Destroy(gridArray[x, y]);
+					tokenObjectPool.RemoveToken(gridArray[x,y]);
 					gridArray[x, y] = null;
 				}
 			}
@@ -119,10 +119,10 @@ public class GameManagerScript : MonoBehaviour {
 	//spawn a token at a grid position
 	public void AddTokenToPosInGrid(int x, int y, GameObject parent){
 		Vector3 position = GetWorldPositionFromGridPosition(x, y);
-		GameObject token = 
-			Instantiate(tokenTypes[Random.Range(0, tokenTypes.Length)], 
-			            position, 
-			            Quaternion.identity) as GameObject;
+		GameObject token = tokenObjectPool.GetToken(position);
+			// Instantiate(tokenTypes[Random.Range(0, tokenTypes.Length)], 
+			//             position, 
+			//             Quaternion.identity) as GameObject;
 		token.transform.parent = parent.transform;
 		gridArray[x, y] = token;
 	}
