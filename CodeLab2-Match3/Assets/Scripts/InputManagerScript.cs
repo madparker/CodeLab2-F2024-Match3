@@ -46,6 +46,7 @@ public class InputManagerScript : MonoBehaviour {
 					if(Mathf.Abs((pos1.x - pos2.x) + (pos1.y - pos2.y)) == 1){ 
 						
 						
+						
 						//call the SetupTokenExchange function from the MoveTokensScript, to lerp the two selected tokens
 						//to each other's position
 						moveManager.SetupTokenExchange(selected, pos1, tokenCollider.gameObject, pos2, true);
