@@ -44,8 +44,9 @@ public class InputManagerScript : MonoBehaviour {
 					
 					//if the xs are the same and the ys are one off from each other
 					//or the ys are the same and the xs are one off from each other
-					if((pos1.x == pos2.x && Mathf.Abs((pos1.y - pos2.y)) == 1) || (pos1.y == pos2.y && Mathf.Abs((pos1.x - pos2.x)) == 1)){ 
-						
+					if((pos1.x == pos2.x && Mathf.Abs((pos1.y - pos2.y)) == 1) || 
+					   (pos1.y == pos2.y && Mathf.Abs((pos1.x - pos2.x)) == 1)){ 
+
 						//call the SetupTokenExchange function from the MoveTokensScript, to lerp the two selected tokens
 						//to each other's position
 						moveManager.SetupTokenExchange(selected, pos1, tokenCollider.gameObject, pos2, true);
