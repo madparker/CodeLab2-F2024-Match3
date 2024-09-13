@@ -5,10 +5,13 @@ using UnityEngine;
 
 namespace AllisonTerry
 {
+    //sub class /inherited etc of match manager script
     public class FixedMatchManagerScript : MatchManagerScript
     {
+        //base class needs to be virtual
         public override bool GridHasMatch()
         {
+            //runs the original base function
             bool match = base.GridHasMatch();
             
             
@@ -21,7 +24,7 @@ namespace AllisonTerry
             //this new check function checks for vertical as well
             //is there a way to just call this function instead of having the whole thing written here?
             //return NewGridCheck();
-            //loop thorugh the entire array again
+            //loop through the entire array again
             for (int x = 0; x < gameManager.gridWidth; x++)
             {
                 for (int y = 0; y < gameManager.gridHeight; y++)
