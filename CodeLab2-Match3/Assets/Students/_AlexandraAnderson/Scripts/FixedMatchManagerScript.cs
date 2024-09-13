@@ -9,42 +9,38 @@ namespace AlexandraAnderson
     public class FixedMatchManagerScript : MatchManagerScript
     {
 
-        public override bool GridHasMatch(){
+        public override bool GridHasMatch(){ //when a function is virtual, any subclass can override and change it.
             /*
              GridHasMatch loops through the grid with all of the potential matches, on the x and the y and checks to see if there are matches.
-            Since the x has already been check with the function GridHasHorizontalMatch, the same must be done with y using GridHasVertical Match.
+            Since the x has already been checked with the function GridHasHorizontalMatch in the original MatchManager Script, the same must be done with y using GridHasVerticalMatch.
             This function will check for vertical matches the same way the previous function checks for horizontal matches.
-            
-            //AudioSource aud; //initializing audio source for match sound
             */
+            //AudioSource aud; //initializing audio source for match sound
             bool match = base.GridHasMatch();
             
             for (int x = 0; x < gameManager.gridWidth; x++) //iterates through x-axis
             {
                 for (int y = 0; y < gameManager.gridHeight; y++) //iterates through y-axis
                 {
-                    //same for the x, if the y is less than 2 spaces away it's in the correct range for a match
+                    //same for the x, if the y is less than 2 spaces away it's in the correct range for a match, if it's closer you can't have a match of 3 anymore
                     if (y < gameManager.gridHeight - 2)
                     {
-                        match = match || GridHasVerticalMatch(x, y);
+                        match = match || GridHasVerticalMatch(x, y); 
                     }
                 }
             }
 		      //this is the match bool variable which is returned true if there is a match and false if there isn't
             return match;
-            
-            /*
-             * If a match is true, then play nice audio sound
-             * if ( match == true){
-             *  aud = GetComponent<AudioSource>();
-             * aud.Play();
-             * }
-             */
+              //if ( match == true) { //If a match is true, then play nice audio sound
+                 // aud = GetComponent<AudioSource>();
+                //  aud.Play(); 
+             // }
+             
         }
         
         
-        public override List<GameObject> GetAllMatchTokens(){
-            List<GameObject> tokensToRemove = base.GetAllMatchTokens();
+        public override List<GameObject> GetAllMatchTokens(){ //needs to be virtual so you can override it and change it
+            List<GameObject> tokensToRemove = base.GetAllMatchTokens(); //getting all of the tokens in the base fucniton, getting all of the horizontal matches
 
             
 		
