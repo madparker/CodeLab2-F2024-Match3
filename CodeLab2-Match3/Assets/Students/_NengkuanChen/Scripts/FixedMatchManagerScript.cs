@@ -8,11 +8,8 @@ namespace NengkuanChen
 {
     public class FixedMatchManagerScript: MatchManagerScript
     {
-        
-        public override bool GridHasMatch()
-        {
-            return GetAllMatchTokens().Count > 0;
-        }
+
+        public override bool GridHasMatch() => GetAllMatchTokens().Count > 0;
         
         /// <summary>
         /// Get all the matches in the grid.
