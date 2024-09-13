@@ -70,7 +70,7 @@ namespace AllisonTerry
                             for (int i = y; i < y + verticalMatchLength; i++)
                             {
                                 //set the token in the space currently being checked
-                                GameObject token = gameManager.gridArray[x, y];
+                                GameObject token = gameManager.gridArray[x, i];
                                 
                                 //add the token to the remove list
                                 tokensToRemove.Add(token);
@@ -148,7 +148,7 @@ namespace AllisonTerry
                 SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>();
                 
                 //loop through the arrays height
-                for (int i = y;  i< gameManager.gridHeight; i++)
+                for (int i = y + 1;  i< gameManager.gridHeight; i++)
                 {
                     // assign the other gameobjects to the i'th gameobject in the same column
                     GameObject other = gameManager.gridArray[x, i];
