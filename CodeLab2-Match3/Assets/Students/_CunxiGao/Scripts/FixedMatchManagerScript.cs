@@ -124,23 +124,24 @@ namespace CunxiGao
             List<GameObject> tokensToRemove = new List<GameObject>();
 
             //loop through the entire grid 
-            for(int x = 0; x < gameManager.gridWidth; x++){
-                for(int y = 0; y < gameManager.gridHeight ; y++){
-				
+            for(int x = 0; x < gameManager.gridWidth; x++)
+            {
+                for(int y = 0; y < gameManager.gridHeight ; y++)
+                {
                     //as long as x is more than 2 spaces away from the right edge of the grid,
-                    if(x < gameManager.gridWidth - 2){
-
+                    if(x < gameManager.gridWidth - 2)
+                    {
                         //Run the GetHorizontalMatchLength function on the currently checked space
                         //and set the horizonMatchLength integer to what is returned
                         int horizonMatchLength = GetHorizontalMatchLength(x, y);
 
                         //if the horizonMatchLength variable is larger than 2
                         //(meaning there are 3 of the same token in a row horizontally)
-                        if(horizonMatchLength > 2){
-
+                        if(horizonMatchLength > 2)
+                        {
                             //loop through the three matching tokens
-                            for(int i = x; i < x + horizonMatchLength; i++){
-							
+                            for(int i = x; i < x + horizonMatchLength; i++)
+                            {
                                 //Assign the token in the space currently being checked to the token variable
                                 GameObject token = gameManager.gridArray[i, y]; 
 							
@@ -151,19 +152,19 @@ namespace CunxiGao
                     }
                     
                     //as long as y is more than 2 spaces away from the top edge of the grid,
-                    if(y < gameManager.gridHeight - 2){
-
+                    if(y < gameManager.gridHeight - 2)
+                    {
                         //Run the GetVerticalMatchLength function on the currently checked space
                         //and set the verticalMatchLength integer to what is returned
                         int verticalMatchLength = GetVerticalMatchLength(x, y);
 
                         //if the verticalMatchLength variable is larger than 2
                         //(meaning there are 3 of the same token in a row vertically)
-                        if(verticalMatchLength > 2){
-
+                        if(verticalMatchLength > 2)
+                        {
                             //loop through the three matching tokens
-                            for(int i = y; i < y + verticalMatchLength; i++){
-							
+                            for(int i = y; i < y + verticalMatchLength; i++)
+                            {
                                 //Assign the token in the space currently being checked to the token variable
                                 GameObject token = gameManager.gridArray[x, i]; 
 							
