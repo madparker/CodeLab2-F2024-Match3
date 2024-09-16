@@ -8,12 +8,12 @@ namespace AllisonTerry
     //sub class /inherited etc of match manager script
     public class FixedMatchManagerScript : MatchManagerScript
     {
+        public int matchNumber = 0;
         //base class needs to be virtual
         public override bool GridHasMatch()
         {
             //runs the original base function
             bool match = base.GridHasMatch();
-            
             
             //GridHasMatch loops through the entire array of sprites
             //and runs GridHasHorizontalMatch
@@ -22,9 +22,6 @@ namespace AllisonTerry
             //we would need to do the same thing here with a new function
             //GridHasVerticalMatch
             //this new check function checks for vertical as well
-            //is there a way to just call this function instead of having the whole thing written here?
-            //return NewGridCheck();
-            //loop through the entire array again
             for (int x = 0; x < gameManager.gridWidth; x++)
             {
                 for (int y = 0; y < gameManager.gridHeight; y++)
@@ -38,6 +35,13 @@ namespace AllisonTerry
                     }
                 }
             }
+            
+            //keeps track of how many vertical matches you have made
+            // if (match)
+            // {
+            //     matchNumber++;
+            //     print(matchNumber);
+            // }
             //return match variable 
             //true if there is a match
             //false if there isnt
@@ -47,6 +51,10 @@ namespace AllisonTerry
         public override List<GameObject> GetAllMatchTokens()
         {
             List<GameObject> tokensToRemove = base.GetAllMatchTokens();
+            //when a horizontal match is made, add one to the match number
+            //IT DOES IT TWICE BUG
+            print(matchNumber);
+            matchNumber++;
             
             //again is there a way to put all of this in its own function
             //and just call it
@@ -79,6 +87,9 @@ namespace AllisonTerry
                     }
                 }
             }
+            //when a vertical match is made, add it to the match number
+            print(matchNumber);
+            matchNumber++;
             //return the list of tokens to be removed
             return tokensToRemove;
         }
@@ -108,30 +119,6 @@ namespace AllisonTerry
                 //else they are not a match and return false
                 return false;
             }
-        }
-
-        public bool NewGridCheck()
-        {
-            bool match = false;
-            
-            //loop thorugh the entire array again
-            for (int x = 0; x < gameManager.gridWidth; x++)
-            {
-                for (int y = 0; y < gameManager.gridHeight; y++)
-                {
-                    //if the y position currently being checked is less than 2 spaces away
-                    //it is in the right range for a match
-                    if (y < gameManager.gridHeight - 2)
-                    {
-                        //call GridHasVerticalMatxh to check for a vertical match
-                        match = match || GridHasVerticalMatch(x, y) || GridHasHorizontalMatch(x, y);
-                    }
-                }
-            }
-            //return match variable 
-            //true if there is a match
-            //false if there isnt
-            return match;
         }
 
         //returns how many of the same token are next to each other
@@ -179,43 +166,6 @@ namespace AllisonTerry
             }
             //returm match length int. thats how many of the same sprite are next to each other to then be removed
             return matchLength;
-        }
-
-        public List<GameObject> GetAllVerticalMatchTokens()
-        {
-            //make a new empty list
-            List<GameObject> tokensToRemove = new List<GameObject>();
-            
-            //loop through the grid again
-            for (int x = 0; x < gameManager.gridWidth; x++)
-            {
-                for (int y = 0; y < gameManager.gridHeight; y++)
-                {
-                    //as long as y is in the appropriate range of 2 space for a match
-                    if (y < gameManager.gridHeight - 2)
-                    {
-                        //run GetVerticalMatchLength 
-                        //ser the VeritcalMatchLength int to the returned number
-                        int verticalMatchLength = GetVerticalMatchLength(x, y);
-                        
-                        //if the verticalMatchLength int is larger than 2
-                        if (verticalMatchLength > 2)
-                        {
-                            // loop through the matching tokens
-                            for (int i = y; i < y + verticalMatchLength; i++)
-                            {
-                                //set the token in the space currently being checked
-                                GameObject token = gameManager.gridArray[x, y];
-                                
-                                //add the token to the remove list
-                                tokensToRemove.Add(token);
-                            }
-                        }
-                    }
-                }
-            }
-            //return the list of tokens to be removed
-            return tokensToRemove;
         }
         
     }
