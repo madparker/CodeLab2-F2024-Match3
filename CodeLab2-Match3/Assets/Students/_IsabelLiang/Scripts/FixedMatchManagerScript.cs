@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,65 @@ namespace IsabelLiang
 {
     public class FixedMatchManagerScript : MatchManagerScript
     {
+        public static FixedMatchManagerScript Instance;
+        public List<GameObject> bombTokens; 
+        public int healthSlider = 8000;
+        public int bombSlider = 0;
+        // Awake is called when the script instance is being loaded
+        public void Awake()
+        {
+            // Check if there is already an instance of this class
+            if (Instance != null && Instance != this)
+            {
+                // If an instance already exists and it's not this one, destroy this object
+                Destroy(gameObject);
+            }
+            else
+            {
+                // If no instance exists, assign this one and make it persistent across scenes
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+        
+        private void Update()
+        {
+            List<GameObject> bombTokens = new List<GameObject>(); 
+            healthSlider-=3;
+            if (bombSlider > 99)
+            {
+                for (int x = 0; x < gameManager.gridWidth; x++)
+                {
+                    for (int y = 0; y < gameManager.gridHeight; y++)
+                    {
+                        if (Random.Range(0, 5)<=1)
+                        {
+                            //Debug.Log(x + "and" +y + "and " + gameManager.gridArray[x,y]);
+                            bombTokens.Add(gameManager.gridArray[x,y]); 
+                            //Debug.Log(bombTokens.Count);
+
+                        }
+
+                        if (bombTokens.Count >= 10)
+                        {
+                            Debug.Log("break");
+                            bombSlider = 0;
+                            break;
+                        }
+                       
+                    }
+                }
+                Debug.Log("Bomb works");
+                if (bombTokens.Count != 0)
+                {
+                    gameManager.RemoveAllMatchTokens(bombTokens);
+                    
+                    bombTokens.Clear();
+                }
+
+            }
+        }
+
         public override bool GridHasMatch(){
             bool match = base.GridHasMatch();
             
@@ -59,8 +119,17 @@ namespace IsabelLiang
                     }
                 }
             }
-		
+
+            if (healthSlider <= 1000)
+            {
+                healthSlider = 8000;
+            }
+            
+            healthSlider += tokensToRemove.Count*80;
+            bombSlider += tokensToRemove.Count*2;
+            
             return tokensToRemove;
+
         }
         
         //Checks the sprites of three tokens that are next to each other vertically to see if they are the same
