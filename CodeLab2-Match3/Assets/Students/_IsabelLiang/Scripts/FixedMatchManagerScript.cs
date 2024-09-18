@@ -38,7 +38,7 @@ namespace IsabelLiang
                 {
                     for (int y = 0; y < gameManager.gridHeight; y++)
                     {
-                        if (Random.Range(0, 5)<=1)
+                        if (Random.Range(0, 8)<=1 && gameManager.gridArray[x, y] != null )
                         {
                             //Debug.Log(x + "and" +y + "and " + gameManager.gridArray[x,y]);
                             bombTokens.Add(gameManager.gridArray[x,y]); 
@@ -46,22 +46,23 @@ namespace IsabelLiang
 
                         }
 
-                        if (bombTokens.Count >= 10)
+                        if (bombTokens.Count >= 12)
                         {
                             Debug.Log("break");
                             bombSlider = 0;
-                            break;
+                            Debug.Log("Bomb works");
+                            if (bombTokens.Count != 0)
+                            {
+                                gameManager.RemoveAllMatchTokens(bombTokens);
+                    
+                                bombTokens.Clear();
+                            }
+                            return;
                         }
                        
                     }
                 }
-                Debug.Log("Bomb works");
-                if (bombTokens.Count != 0)
-                {
-                    gameManager.RemoveAllMatchTokens(bombTokens);
-                    
-                    bombTokens.Clear();
-                }
+
 
             }
         }
@@ -126,7 +127,7 @@ namespace IsabelLiang
             }
             
             healthSlider += tokensToRemove.Count*80;
-            bombSlider += tokensToRemove.Count*2;
+            bombSlider += tokensToRemove.Count*3;
             
             return tokensToRemove;
 
