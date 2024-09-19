@@ -49,7 +49,7 @@ public class TokenObjectPool : MonoBehaviour
         objectPool.Enqueue(token);
     }
 
-    public void Reset(GameObject token, Vector3 position)
+    public virtual void Reset(GameObject token, Vector3 position)
     {
         token.SetActive(true);
         token.transform.position = position;
