@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TokenObjectPool : MonoBehaviour
 {
-    Queue<GameObject> objectPool = new Queue<GameObject>();
+    protected Queue<GameObject> objectPool = new Queue<GameObject>();
     
-    Object[] tokenTypes;
-    Sprite[] spriteTypes; 
+    protected Object[] tokenTypes;
+    protected Sprite[] spriteTypes; 
     
     // Start is called before the first frame update
     void Start()
