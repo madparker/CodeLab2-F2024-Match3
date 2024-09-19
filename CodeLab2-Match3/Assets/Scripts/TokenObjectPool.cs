@@ -22,7 +22,7 @@ public class TokenObjectPool : MonoBehaviour
         
     }
 
-    public GameObject GetToken(Vector3 position)
+    public virtual GameObject GetToken(Vector3 position)
     {
         GameObject token;
         
