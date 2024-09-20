@@ -7,10 +7,11 @@ namespace IsabelLiang
 {
     public class FixedTokensObjectPool : TokenObjectPool
     {
-         void Start()
-         {
-            
-         }
+        void Awake()
+        {
+            tokenTypes = (Object[])Resources.LoadAll("_Core/Tokens/"); //load all the token prefabs
+            spriteTypes = Resources.LoadAll<Sprite>("_Core/Images");
+        }
     }
 
 }
