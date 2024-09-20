@@ -8,6 +8,19 @@ namespace CunxiGao
     public class FixedMatchManagerScript : MatchManagerScript
     {
 
+        private ScoreAndTimerManager scoreAndTimerManager;
+
+        public override void Start()
+        {
+            // Initialize the ScoreManager
+            base.Start();
+            scoreAndTimerManager = GetComponent<ScoreAndTimerManager>();
+            if (scoreAndTimerManager == null)
+            {
+                Debug.Log("ScoreManager is null");
+            }
+
+        }
         public override bool GridHasMatch()
         {
             //Initialize the match bool to false
@@ -36,7 +49,14 @@ namespace CunxiGao
                     }
                 }
             }
-		
+
+            if (match)
+            {
+                scoreAndTimerManager.AddScore(1);
+                scoreAndTimerManager.AddTimer(1);
+                // Increment score and time by 1 when a match is detected
+            }
+            
             //return the match variable (which can be false or true)
             return match;
         }
