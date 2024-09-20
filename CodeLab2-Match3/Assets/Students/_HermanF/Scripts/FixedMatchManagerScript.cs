@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace HermanF 
 {
-
     public class FixedMatchManagerScript : MatchManagerScript
     {
 
+	    public Timer timer;
+	    
         public override bool GridHasMatch(){
             bool match = base.GridHasMatch();
             
@@ -30,7 +31,12 @@ namespace HermanF
                     }
                 }
             }
-		      
+
+            if (match)
+            {
+	            timer.AddTime();
+            }
+            
             return match;
         }
         
