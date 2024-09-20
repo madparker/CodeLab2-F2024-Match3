@@ -44,7 +44,9 @@ namespace DabuLyu
         {
             if (matchGroups.Count > 0)
             {
-                Debug.Log(matchGroups.Count);
+                Debug.Log("MatchGroupCount" +matchGroups.Count);
+                DebugMatchGroups();
+                DebugMatchGroups();
                 return matchGroups.Dequeue();
             }
             else
