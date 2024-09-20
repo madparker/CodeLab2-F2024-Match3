@@ -6,6 +6,15 @@ namespace VivianChen
 {
     public class VivianFixedMatchManagerScript : MatchManagerScript
     {
+        protected VivianGameManagerScript vivianGameManagerScript;
+
+        public override void Start()
+        {
+            base.Start();
+
+            vivianGameManagerScript = GetComponent<VivianGameManagerScript>();
+        }
+
         public override bool GridHasMatch(){
             bool match = base.GridHasMatch();
             
@@ -22,7 +31,13 @@ namespace VivianChen
                     }
                 }
             }
-		      
+
+            // If there's a match, tell Game Manager to increase the score
+            if (match)
+            {
+                vivianGameManagerScript.Score++;
+            }
+            
             return match;
         }
 
