@@ -1,12 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SpyriPotam
 {
     //this script is a subscript of MatchManagerScript: it extends from it
     public class SpyriFixedMatchManagerScript : MatchManagerScript
     {
+        private int currentScore = 0;
+        public Text scoreText;
+        public AudioSource gameAudio;
+
+        public SpyriModdedInputManagerScript moddedInputManager;
+        
+        //Initializes an AudioSource as well as the GameManagerScript
+        public override void Start()
+        {
+            gameManager = GetComponent<GameManagerScript>();
+            moddedInputManager = GetComponent<SpyriModdedInputManagerScript>();
+            gameAudio = GetComponent<AudioSource>();
+            scoreText.text = "Score: " + currentScore;
+        }
 
         //additional code added on top of the initial GridHasMatch function to check for vertical matches
         public override bool GridHasMatch()
@@ -123,9 +138,9 @@ namespace SpyriPotam
                         int verticalMatchLength = GetVerticalMatchLength(x, y);
 
                         //if the verticalMatchLength variable is larger than 2
-                        //(meaning there are 3 of the same token in a row vertically)
+                        //(meaning there are at least 3 of the same token in a row vertically)
                         if(verticalMatchLength > 2){
-
+                            
                             //loop through the three matching tokens
                             for(int i = y; i < y + verticalMatchLength; i++){
 							
@@ -139,7 +154,21 @@ namespace SpyriPotam
                     }
                 }
             }
-		
+            
+            //checks if the player has made any moves yet before adding to the score
+            //this prevents a game from initializing with a score of greater than 0 due to matches 
+            //randomly made by the seed being used
+            if (moddedInputManager.playerMadeMove == true)
+            {
+                gameAudio.Play();
+                
+                //increments the current score by the current number of tokens in the tokensToRemove list.
+                currentScore += tokensToRemove.Count;
+                
+                //prints the current score again to update it
+                scoreText.text = "Score: " + currentScore;  
+            }
+            
             //return the list of tokens to be removed
             return tokensToRemove;
         }
