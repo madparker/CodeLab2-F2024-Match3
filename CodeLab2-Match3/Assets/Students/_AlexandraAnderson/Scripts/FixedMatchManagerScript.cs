@@ -7,6 +7,10 @@ namespace AlexandraAnderson
 
     public class FixedMatchManagerScript : MatchManagerScript
     {
+        //trying to get audio
+        [SerializeField] private AudioClip collectSound;
+        
+        [SerializeField] private AudioSource audioSource;
 
         public override bool GridHasMatch(){ //when a function is virtual, any subclass can override and change it.
             /*
@@ -42,7 +46,8 @@ namespace AlexandraAnderson
         
         
         public override List<GameObject> GetAllMatchTokens(){ //needs to be virtual so you can override it and change it
-            List<GameObject> tokensRemoved = base.GetAllMatchTokens(); //getting all of the tokens in the base function, getting all of the horizontal matches
+            
+            List<GameObject> tokensToRemove = base.GetAllMatchTokens(); //getting all of the tokens in the base function, getting all of the horizontal matches
             
             for (int x = 0; x < gameManager.gridWidth; x++) //looping through x-axis
             {
@@ -53,26 +58,26 @@ namespace AlexandraAnderson
                     {
                         //run VerticalMatchLength 
                         
-                        int VML = VerticalMatchLength(x, y); //int for the length of the vertical match
+                        int verticalMatchLength = GetVerticalMatchLength(x, y); //int for the length of the vertical match
                         
                         //if the verticalMatchLength int is larger than 2
-                        if (VML > 2)
+                        if (verticalMatchLength > 2)
                         {
                             // loop through the matching tokens
-                            for (int t = y; t < y + VML; t++)
+                            for (int t = y; t < y + verticalMatchLength; t++)
                             {
                                 //set the token in the space currently being checked
-                                GameObject token = gameManager.gridArray[x, y];
+                                GameObject token = gameManager.gridArray[x, t];
                                 
                                 //add the token to the list of tokens to remove
-                                tokensRemoved.Add(token);
+                                tokensToRemove.Add(token);
                             }
                         }
                     }
                 }
             }
 		
-            return tokensRemoved;
+            return tokensToRemove;
         }
 
         public bool GridHasVerticalMatch(int x, int y)
@@ -103,29 +108,7 @@ namespace AlexandraAnderson
             }
         }
 
-        public bool NewGridCheck()
-        {
-            bool match = false; //setting match equal to false
-            
-            //loop through the grid
-            for (int x = 0; x < gameManager.gridWidth; x++) //iterates through x-axis
-            {
-                for (int y = 0; y < gameManager.gridHeight; y++) //iterates through y-axis
-                {
-                    //same for the x, if the y is less than 2 spaces away it's in the correct range for a match
-                    if (y < gameManager.gridHeight - 2)
-                    {
-                        //Check for a vertical match!
-                        match = match || GridHasVerticalMatch(x, y) || GridHasVerticalMatch(x, y);
-                    }
-                }
-            }
-            //returns match variable which will be false if there isn't a match and true if there is
-            return match;
-        }
-        
-        //need to get the length of the match in order to get all of the vertical matches and loop through them then remove them
-        public int VerticalMatchLength(int x, int y)
+        public int GetVerticalMatchLength(int x, int y)
         {
             int matchLength = 1; //initializing the match length variable
 
@@ -138,7 +121,7 @@ namespace AlexandraAnderson
                 SpriteRenderer Sprite1 = firstPos.GetComponent<SpriteRenderer>();
 
                 //then loop through the height of the grid
-                for (int t = y; t < gameManager.gridHeight; t++)
+                for (int t = y + 1; t < gameManager.gridHeight; t++)
                 {
                     //assign the game objects (gobjs) to t's current position as it goes through the length of the column
                     GameObject gobjs = gameManager.gridArray[x, t];
@@ -149,7 +132,7 @@ namespace AlexandraAnderson
                         SpriteRenderer Sprite2 = gobjs.GetComponent<SpriteRenderer>();
 
                         //if the sprites are the same
-                        if (Sprite1 == Sprite2)
+                        if (Sprite1.sprite == Sprite2.sprite)
                         {
                             matchLength++; //continue
                         }
@@ -168,11 +151,43 @@ namespace AlexandraAnderson
 
             return matchLength; //this returns the match length as an integer, the length of how many of the same sprite are next to eachother vertically to then be removed
         }
+        
+        public bool NewGridCheck()
+        {
+            bool match = false; //setting match equal to false
+            
+            //loop through the grid
+            for (int x = 0; x < gameManager.gridWidth; x++) //iterates through x-axis
+            {
+                for (int y = 0; y < gameManager.gridHeight; y++) //iterates through y-axis
+                {
+                    //same for the x, if the y is less than 2 spaces away it's in the correct range for a match
+                    if (y < gameManager.gridHeight - 2)
+                    {
+                        //Check for a vertical match!
+                        match = match || GridHasVerticalMatch(x, y) || GridHasVerticalMatch(x, y);
+                    }
+                }
+            }
+            //returns match variable which will be false if there isn't a match and true if there is
+            
+            ///*
+            if (match == true){
+                audioSource.PlayOneShot(collectSound);
+                ScoreCounter.Instance.Score += 1;
+            }
+            //*/
+            
+            return match;
+        }
+        
+        //need to get the length of the match in order to get all of the vertical matches and loop through them then remove them
+
 
         public List<GameObject> AllVerticalMatchTokens() //making a list of all the vertical match tokens yay
             {
                 //empty list
-                List<GameObject> tokensRemoved = new List<GameObject>();
+                List<GameObject> tokensToRemove = new List<GameObject>();
                 
                 //loop through the grid!
                 for (int x = 0; x < gameManager.gridWidth; x++) //iterates through x-axis
@@ -183,25 +198,25 @@ namespace AlexandraAnderson
                         if (y < gameManager.gridHeight - 2)
                         {
                             //time to use VerticalMatchLength
-                            int VML = VerticalMatchLength(x, y);
+                            int verticalMatchLength = GetVerticalMatchLength(x, y);
                             
                             //if the vertical match length is greater than 2
-                            if (VML >2){
+                            if (verticalMatchLength >2){
                                 //then loop through the matching tokens
-                                for (int t = y; t < y + VML; t++)
+                                for (int t = y; t < y + verticalMatchLength; t++)
                                 {
                                     //set the token that is currently being checked
                                     GameObject token = gameManager.gridArray[x, y];
                                     
                                     //add the token to the list of tokens to be removed
-                                    tokensRemoved.Add(token);
+                                    tokensToRemove.Add(token);
                                 }
                             }
                         }
                     }
                 }
                 // return the list of tokens to be removed
-                return tokensRemoved;
+                return tokensToRemove;
             }
     }
 }
