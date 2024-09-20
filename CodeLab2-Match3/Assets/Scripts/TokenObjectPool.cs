@@ -28,6 +28,7 @@ public class TokenObjectPool : MonoBehaviour
         
         if (objectPool.Count == 0)
         {
+            Debug.Log(tokenTypes);
             token =
                 Instantiate(tokenTypes[Random.Range(0, tokenTypes.Length)],
                     position,

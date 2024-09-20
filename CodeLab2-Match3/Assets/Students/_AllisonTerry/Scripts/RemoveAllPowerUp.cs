@@ -20,6 +20,7 @@ public class RemoveAllPowerUp : MonoBehaviour
     {
         myMatchManagerScript = GetComponent<FixedMatchManagerScript>();
         gameManager = GetComponent<GameManagerScript>();
+        tokenObjectPool = GetComponent<TokenObjectPool>();
         tokenTypes = Resources.LoadAll<GameObject>("_Core/Tokens"); //load all the token prefabs
         spriteTypes = Resources.LoadAll<Sprite>("_Core/Images");
     }
@@ -59,9 +60,10 @@ public class RemoveAllPowerUp : MonoBehaviour
                 {
                     //set the token to be removed to the current token in the array
                     tokenToBeRemoved = gameManager.gridArray[x, y];
-                    //tokenObjectPool.RemoveToken(tokenToBeRemoved); didn't work :(
+                    tokenObjectPool.RemoveToken(tokenToBeRemoved); //didn't work :(
+                    gameManager.gridArray[x, y] = null;
                     //remove that token
-                    Destroy(tokenToBeRemoved);
+                    //Destroy(tokenToBeRemoved);
                 }
             }
         }
