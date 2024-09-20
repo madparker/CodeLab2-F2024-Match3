@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
 namespace AlexandraAnderson 
@@ -29,23 +28,51 @@ namespace AlexandraAnderson
                     }
                 }
             }
-		      //this is the match bool variable which is returned true if there is a match and false if there isn't
+            //this is the match bool variable which is returned true if there is a match and false if there isn't
             return match;
-            /*  
+
+            /*
+             Trying to get audio to play on a match
             //if ( match == true) { //If a match is true, then play nice audio sound
                  // aud = GetComponent<AudioSource>();
-                //  aud.Play(); 
+                //  aud.Play();
              // }
              */
         }
         
         
         public override List<GameObject> GetAllMatchTokens(){ //needs to be virtual so you can override it and change it
-            List<GameObject> tokensToRemove = base.GetAllMatchTokens(); //getting all of the tokens in the base fucniton, getting all of the horizontal matches
-
+            List<GameObject> tokensRemoved = base.GetAllMatchTokens(); //getting all of the tokens in the base function, getting all of the horizontal matches
             
+            for (int x = 0; x < gameManager.gridWidth; x++) //looping through x-axis
+            {
+                for (int y = 0; y < gameManager.gridHeight; y++) //looping through y-axis
+                {
+                    
+                    if (y < gameManager.gridHeight - 2) //if you're within the correct range for the y
+                    {
+                        //run VerticalMatchLength 
+                        
+                        int VML = VerticalMatchLength(x, y); //int for the length of the vertical match
+                        
+                        //if the verticalMatchLength int is larger than 2
+                        if (VML > 2)
+                        {
+                            // loop through the matching tokens
+                            for (int t = y; t < y + VML; t++)
+                            {
+                                //set the token in the space currently being checked
+                                GameObject token = gameManager.gridArray[x, y];
+                                
+                                //add the token to the list of tokens to remove
+                                tokensRemoved.Add(token);
+                            }
+                        }
+                    }
+                }
+            }
 		
-            return tokensToRemove;
+            return tokensRemoved;
         }
 
         public bool GridHasVerticalMatch(int x, int y)

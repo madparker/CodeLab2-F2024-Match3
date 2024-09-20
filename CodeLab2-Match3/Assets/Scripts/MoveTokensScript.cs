@@ -121,14 +121,14 @@ public class MoveTokensScript : MonoBehaviour {
 		}
 	}
 
-	public virtual bool MoveTokensToFillEmptySpaces(){ //boolen for true or false if a token is filling an empty space
+	public virtual bool MoveTokensToFillEmptySpaces(){ //boolean for true or false if a token is filling an empty space
 		bool movedToken = false;
 		//checking to see if the positions around token to see if they're empty, up and down only, making sure tokens when there's empty space below it
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			for(int y = 0; y < gameManager.gridHeight; y++){
-				if(gameManager.gridArray[x, y] == null){ //lopping through the grid array and checking if they are empty
+				if(gameManager.gridArray[x, y] == null){ //looping through the grid array and checking if they are empty
 					for(int pos = y; pos < gameManager.gridHeight; pos++){ //if the position is inside the height of the grid then continue
-						GameObject token = gameManager.gridArray[x, pos]; //setting the token's x value and y posiiton as the pos variable
+						GameObject token = gameManager.gridArray[x, pos]; //setting the token's x value and y position as the pos variable
 						if(token != null){ //if the token is there, then call move the token to empty position function
 							MoveTokenToEmptyPos(x, pos, x, pos - 1, token);
 							movedToken = true;
