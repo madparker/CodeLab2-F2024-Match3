@@ -4,7 +4,7 @@ using AlexandraAnderson;
 using TMPro;
 using UnityEngine;
 
-public class ScoreCounter : MonoBehaviour
+public sealed class ScoreCounter : MonoBehaviour
 {
     //using the singleton pattern for score counter
     public static ScoreCounter Instance { get; private set; }
