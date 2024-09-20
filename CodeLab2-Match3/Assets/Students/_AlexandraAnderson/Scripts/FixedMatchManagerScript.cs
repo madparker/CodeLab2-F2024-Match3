@@ -18,7 +18,7 @@ namespace AlexandraAnderson
             Since the x has already been checked with the function GridHasHorizontalMatch in the original MatchManager Script, the same must be done with y using GridHasVerticalMatch.
             This function will check for vertical matches the same way the previous function checks for horizontal matches.
             */
-            //AudioSource aud; //initializing audio source for match sound
+            
             bool match = base.GridHasMatch();
             
             for (int x = 0; x < gameManager.gridWidth; x++) //iterates through x-axis
@@ -33,15 +33,15 @@ namespace AlexandraAnderson
                 }
             }
             //this is the match bool variable which is returned true if there is a match and false if there isn't
+            if (match)
+            {
+                ScoreCounter.Instance.Score += 1;
+                audioSource.PlayOneShot(collectSound);
+            }
+            
             return match;
 
-            /*
-             Trying to get audio to play on a match
-            //if ( match == true) { //If a match is true, then play nice audio sound
-                 // aud = GetComponent<AudioSource>();
-                //  aud.Play();
-             // }
-             */
+           
         }
         
         
@@ -170,13 +170,6 @@ namespace AlexandraAnderson
                 }
             }
             //returns match variable which will be false if there isn't a match and true if there is
-            
-            ///*
-            if (match == true){
-                audioSource.PlayOneShot(collectSound);
-                ScoreCounter.Instance.Score += 1;
-            }
-            //*/
             
             return match;
         }
